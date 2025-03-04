@@ -1,6 +1,8 @@
 //imports the layout of the GUI window
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,18 +11,26 @@ import javax.swing.JPanel;
 
 
 //main class called GUI
-public class GUI {
+public class GUI implements ActionListener {
+
+	int count = 0;
+	private JLabel label;
+	private JFrame frame;
+	private JButton button;
+	private JPanel panel;
 
 	//constructor for the GUI class
 	public GUI() {
 
 		JFrame frame = new JFrame();
 
-		JButton button = new JButton("Click me");
-		JLabel label = new JLabel("Number of clicks: 0");
+		button = new JButton("Click me");
+		button.addActionListener(this);
+
+		label = new JLabel("Number of clicks: 0");
 
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 		panel.setLayout(new GridLayout(0, 1));
 		panel.add(button);
@@ -39,9 +49,15 @@ public class GUI {
 	public static void main(String[] args) {
 		
 		new GUI();
+	}
 
 
-
+	//method which is used when clicked
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		count++; //takes the previous number of click and adds a new one each time it is clicked.
+		label.setText("Number of clicks: " + count);  //new text for the label for each click made.
 	}
 
 }
